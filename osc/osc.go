@@ -12,6 +12,7 @@ import (
 	"net"
 	"reflect"
 	"regexp"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -546,6 +547,24 @@ func (s *Server) ListenAndServe() error {
 	return s.Serve(ln)
 }
 
+// Listen sets up a socket listener which can subsequently be passed to Serve().
+// The caller is responsible for closing the PacketConn representing this listener.
+func (s *Server) Listen() (net.PacketConn, error) {
+	if s.Dispatcher == nil {
+		s.Dispatcher = NewStandardDispatcher()
+	}
+
+	ln, err := net.ListenPacket("udp", s.Addr)
+	if err != nil {
+		return nil, err
+	}
+	s.LocalAddr = ln.LocalAddr()
+
+	s.close = ln.Close
+
+	return ln, nil
+}
+
 // Serve retrieves incoming OSC packets from the given connection and dispatches
 // retrieved OSC packets. If something goes wrong an error is returned.
 func (s *Server) Serve(c net.PacketConn) error {
@@ -596,6 +615,15 @@ func (s *Server) CloseConnection() error {
 // ReceivePacket listens for incoming OSC packets and returns the packet if one is received.
 func (s *Server) ReceivePacket(c net.PacketConn) (Packet, error) {
 	return s.readFromConnection(c)
+}
+
+// GetPort returns the number of the local port to which the server is listening.
+func (s *Server) GetPort() (int, error) {
+	_, portStr, err := net.SplitHostPort(s.LocalAddr.String())
+	if err != nil {
+		return 0, err
+	}
+	return strconv.Atoi(portStr)
 }
 
 // readFromConnection retrieves OSC packets.
