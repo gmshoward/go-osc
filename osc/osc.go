@@ -62,6 +62,7 @@ type Client struct {
 // incoming OSC packets and bundles.
 type Server struct {
 	Addr        string
+	LocalAddr   net.Addr
 	Dispatcher  Dispatcher
 	ReadTimeout time.Duration
 	close       func() error
@@ -538,6 +539,7 @@ func (s *Server) ListenAndServe() error {
 	if err != nil {
 		return err
 	}
+	s.LocalAddr = ln.LocalAddr()
 
 	s.close = ln.Close
 

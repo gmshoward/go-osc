@@ -1,9 +1,9 @@
 # GoOSC
 
-![Build](https://github.com/hypebeast/go-osc/actions/workflows/test.yml/badge.svg) [![GoDoc](https://godoc.org/github.com/hypebeast/go-osc/osc?status.svg)](https://godoc.org/github.com/hypebeast/go-osc/osc) [![Coverage Status](https://coveralls.io/repos/github/hypebeast/go-osc/badge.svg?branch=master)](https://coveralls.io/github/hypebeast/go-osc?branch=master)
-[![Go Report Card](https://goreportcard.com/badge/github.com/hypebeast/go-osc)](https://goreportcard.com/report/github.com/hypebeast/go-osc)
+![Build](https://github.com/gmshoward/go-osc/actions/workflows/test.yml/badge.svg) [![GoDoc](https://godoc.org/github.com/gmshoward/go-osc/osc?status.svg)](https://godoc.org/github.com/gmshoward/go-osc/osc) [![Coverage Status](https://coveralls.io/repos/github/gmshoward/go-osc/badge.svg?branch=master)](https://coveralls.io/github/gmshoward/go-osc?branch=master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/gmshoward/go-osc)](https://goreportcard.com/report/github.com/gmshoward/go-osc)
 
-[Open Sound Control (OSC)](http://opensoundcontrol.org) library for Golang. Implemented in pure Go.
+This is a fork of hypebeast's [Open Sound Control (OSC)](http://opensoundcontrol.org) [library for Golang](https://pkg.go.dev/github.com/hypebeast/go-osc/osc). Its only deviation from the original is to provide an interface for showing what port was *actually chosen* when the listener was started.
 
 ## Features
 
